@@ -26,6 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   .main-container {
+    background-color: $clr-main;
     flex-grow: 1;
   }
 }
