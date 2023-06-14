@@ -1,14 +1,22 @@
 .app-header-constainer {
-  background-color: lightblue;
+  background-color: $clr-white;
   font-family: raleway;
   color: $clr-secondary;
+  font-size: rem(14px);
+
 
   .app-header {
+    .logo{
+      
+    }
     .header-link{
-        margin-right:  1rem;
-    }
-    .active {
-      color: green;
-    }
+        margin-left:  1rem;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      .active{
+        color: $clr-main;
+      }
   }
 }
