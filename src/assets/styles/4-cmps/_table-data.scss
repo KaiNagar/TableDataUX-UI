@@ -1,0 +1,44 @@
+.table-data {
+  margin: 1rem;
+  table {
+    font-size: rem(20px);
+    border-collapse: collapse;
+  }
+  thead {
+    th {
+      text-align: start;
+      border: 1px solid $clr-border;
+      color: $clr-black;
+      &:first-of-type {
+        border-top-left-radius: rem(40px);
+      }
+    }
+    .add-column-btn {
+      text-align: center;
+      padding-inline: rem(9px);
+      &:hover {
+        cursor: pointer;
+        color: $clr-main;
+      }
+    }
+  }
+  tbody {
+    td {
+      border: 1px solid $clr-border;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+    .add-row-btn {
+      text-align: center;
+      padding-inline: rem(9px);
+      background-color: transparent;
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        color: $clr-main;
+      }
+    }
+  }
+}
