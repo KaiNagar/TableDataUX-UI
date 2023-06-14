@@ -1,0 +1,21 @@
+// setup
+@import "./1-setup/functions";
+@import "./1-setup/mixins";
+@import "./1-setup/typography";
+@import "./1-setup/variables";
+
+// base
+@import "./2-base/base";
+@import "./2-base/helpers";
+
+// layout
+@import "./3-layout/main-layout";
+
+// pages
+@import './5-pages/home-page';
+@import './5-pages/login-page';
+
+// cmps
+@import './4-cmps/app-header';
+@import './4-cmps/app-footer';
+

@@ -1,0 +1,14 @@
+.app-header-constainer {
+  background-color: lightblue;
+  font-family: raleway;
+  color: $clr-secondary;
+
+  .app-header {
+    .header-link{
+        margin-right:  1rem;
+    }
+    .active {
+      color: green;
+    }
+  }
+}

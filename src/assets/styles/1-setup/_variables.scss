@@ -1,0 +1,23 @@
+// BASIC COLOR PALETTE
+
+$clr-white: #fff;
+$clr-border: #707070;
+$clr-Lgrey: #c0c0c0;
+$clr-grey: #919191;
+$clr-warning: #e04747;
+$clr-black: #000;
+
+// Colors
+$clr-main: #f47c24;
+$clr-secondary: #141414;
+$clr-LightMain: lighten($clr-main, 20%);
+$clr-DarkMain: darken($clr-main, 20%);
+$clr-LightSecondary: lighten($clr-secondary, 20%);
+$clr-DarkSecondary: darken($clr-secondary, 20%);
+
+
+// LAYOUT BREAKPOINTS
+$mobile-breakpoint: 600px;
+$tablet-breakpoint: 768px;
+$normal-breakpoint: 900px;
+$wide-breakpoint: 1080px;
