@@ -15,14 +15,19 @@ export const TableIndex = () => {
     setData(dataToUse)
   }
 
-  const onCellEdit = (rowId, columnId, newValue) => {
-    const updatedData = { ...data };
-    const rowIndex = updatedData.rows.findIndex((row) => row.id === rowId);
-    const columnIndex = updatedData.columns.findIndex((column) => column.id === columnId);
-  
+  const onCellEdit = (rowId, columnId, elInput) => {
+    if (!elInput) return
+    const newValue =
+      elInput.type === 'checkbox' ? elInput.checked : elInput.value
+    const updatedData = { ...data }
+    const rowIndex = updatedData.rows.findIndex((row) => row.id === rowId)
+    const columnIndex = updatedData.columns.findIndex(
+      (column) => column.id === columnId
+    )
+
     if (rowIndex !== -1 && columnIndex !== -1) {
-      updatedData.rows[rowIndex][columnId] = newValue;
-      setData(updatedData);
+      updatedData.rows[rowIndex][columnId] = newValue
+      setData(updatedData)
     }
   }
   return (

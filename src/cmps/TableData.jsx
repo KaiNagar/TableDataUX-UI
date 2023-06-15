@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react'
 
 export const TableData = ({ data, onCellEdit }) => {
-  const [editedCell, setEditedCell] = useState(null);
-  const editedCellValueRef = useRef("");
+  const [editedCell, setEditedCell] = useState(null)
+  const editedCellValueRef = useRef('')
 
   const handleEditCell = (rowId, columnId, value) => {
-    setEditedCell({ rowId, columnId });
-    editedCellValueRef.current = value.toString();
-  };
+    setEditedCell({ rowId, columnId })
+    editedCellValueRef.current = value.toString()
+  }
 
   const handleSaveCell = () => {
     if (editedCell) {
@@ -15,45 +15,57 @@ export const TableData = ({ data, onCellEdit }) => {
         editedCell.rowId,
         editedCell.columnId,
         editedCellValueRef.current
-      );
-      setEditedCell(null);
+      )
+      setEditedCell(null)
     }
-  };
+  }
 
   const handleCancelEdit = () => {
-    setEditedCell(null);
-    editedCellValueRef.current = "";
-  };
+    setEditedCell(null)
+    editedCellValueRef.current = ''
+  }
 
   const renderCellValue = (cellValue, columnType, rowId, columnId) => {
-    if (columnType === "boolean") {
+    if (columnType === 'boolean') {
       return (
         <input
-          type="checkbox"
+          type='checkbox'
           checked={cellValue}
-          onChange={(e) =>
-            onCellEdit(rowId, columnId, e.target.checked)
-          }
+          onChange={(e) => onCellEdit(rowId, columnId, e.target.checked)}
         />
-      );
-    } else if (typeof cellValue === "number") {
-      return cellValue.toString();
+      )
+    // maybe not needed
+    // else if (typeof cellValue === 'number') {
+    //   return cellValue.toString()
+    // }
     }
-    return cellValue;
-  };
+    return cellValue
+  }
 
   const onUserAction = (e) => {
-    if (e.key === "Enter") {
-      handleSaveCell();
-    } else if (e.key === "Escape") {
-      handleCancelEdit();
+    if (e.key === 'Enter') {
+      handleSaveCell()
+    } else if (e.key === 'Escape') {
+      handleCancelEdit()
     }
-  };
+  }
+
+  const getInputType = (type) => {
+    switch (type) {
+      case 'boolean':
+        return 'checkbox'
+      case 'number':
+        return 'number'
+      default:
+        return 'text'
+    }
+  }
 
   return (
-    <div className="table-data">
+    <div className='table-data'>
       <table>
         <thead>
+          {/* send to diffrent cmp called <TableHeaders headers={data.columns} /> */}
           <tr>
             {data.columns
               .sort((c1, c2) => c1.ordinalNo - c2.ordinalNo)
@@ -63,21 +75,22 @@ export const TableData = ({ data, onCellEdit }) => {
                 </th>
               ))}
             {data.columns.length < 5 && (
-              <th title="Add a column" className="add-column-btn">
+              <th title='Add a column' className='add-column-btn'>
                 +
               </th>
             )}
           </tr>
         </thead>
         <tbody>
+          {/* diffrent cmp called <TableRowList rows={data.rows} onCellEdit={onCellEdit} /> */}
           {data.rows.map((row) => (
             <tr key={row.id}>
               {data.columns.map((column) => {
-                const cellValue = row[column.id];
+                const cellValue = row[column.id]
                 const isEditing =
                   editedCell &&
                   editedCell.rowId === row.id &&
-                  editedCell.columnId === column.id;
+                  editedCell.columnId === column.id
                 return (
                   <td
                     key={`${row.id}-${column.id}`}
@@ -87,7 +100,8 @@ export const TableData = ({ data, onCellEdit }) => {
                   >
                     {isEditing ? (
                       <input
-                        type={column.type === "boolean" ? "checkbox" : "text"}
+                        className='edit-cell-input'
+                        type={getInputType(column.type)}
                         defaultValue={cellValue}
                         onBlur={handleSaveCell}
                         onKeyDown={onUserAction}
@@ -104,17 +118,17 @@ export const TableData = ({ data, onCellEdit }) => {
                       </span>
                     )}
                   </td>
-                );
+                )
               })}
             </tr>
           ))}
           {data.rows.length < 5 && (
             <tr>
-                <td className='add-row-btn'>+</td>
+              <td className='add-row-btn'>+</td>
             </tr>
           )}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
