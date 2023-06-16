@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
@@ -9,12 +9,20 @@ export const TableIndex = () => {
   const [data, setData] = useState(null)
   const [isNewColumnModalShow, setIsNewColumnModalShow] = useState(false)
 
-  useEffectUpdate(() => {
-    loadData()
-  }, [])
+  const [filterBy, setFilterBy] = useState(dataService.getEmptyFilterBy())
+  const [allColumns, setAllColumns] = useState()
+  const isFirstRender = useRef(true)
 
-  const loadData = async () => {
-    const dataToUse = await dataService.query()
+  useEffectUpdate(() => {
+    loadData(filterBy)
+  }, [filterBy])
+
+  const loadData = async (filterBy) => {
+    const dataToUse = await dataService.query(filterBy)
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      setAllColumns(dataToUse.columns)
+    }
     setData(dataToUse)
   }
 
@@ -46,6 +54,11 @@ export const TableIndex = () => {
     dataService.save(newData)
   }
 
+  const onSetFilterBy = (columnsId) => {
+    console.log(columnsId)
+    setFilterBy((prevFilter) => ({ ...prevFilter, columns: columnsId }))
+  }
+
   const onSaveCell = (rowId, columnId, elInput) => {
     if (!elInput) return
     let newValue = ''
@@ -75,15 +88,17 @@ export const TableIndex = () => {
 
   return (
     <section className='table-index flex column align-items justify-center'>
-      <DataFilter />
       {data ? (
-        <TableData
-          onAddRow={onAddRow}
-          onOpenColumnModal={onOpenColumnModal}
-          data={data}
-          onSaveCell={onSaveCell}
-          onRemoveColumn={onRemoveColumn}
-        />
+        <>
+          <DataFilter onSetFilterBy={onSetFilterBy} columns={allColumns} />
+          <TableData
+            onAddRow={onAddRow}
+            onOpenColumnModal={onOpenColumnModal}
+            data={data}
+            onSaveCell={onSaveCell}
+            onRemoveColumn={onRemoveColumn}
+          />
+        </>
       ) : (
         <span>Loading Data...</span>
       )}

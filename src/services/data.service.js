@@ -4,7 +4,8 @@ export const dataService = {
     query,
     save,
     getEmptyRow,
-    getEmptycolumn
+    getEmptycolumn,
+    getEmptyFilterBy
 }
 
 const STORAGE_KEY = 'dataDB'
@@ -13,7 +14,13 @@ _createData()
 
 
 async function query(filterBy = {}) {
-    return await storageService.query(STORAGE_KEY)
+    let data = await storageService.query(STORAGE_KEY)
+    if (filterBy.columns.length) {
+        data.columns = data.columns.filter(c => filterBy.columns.includes(c.id))
+    }
+    return data
+
+
 }
 
 
@@ -35,6 +42,14 @@ function getEmptycolumn() {
         title: '',
         type: '',
         width: 100
+    }
+}
+
+function getEmptyFilterBy() {
+    return {
+        columns: [],
+        text: '',
+        minAge: 0,
     }
 }
 
