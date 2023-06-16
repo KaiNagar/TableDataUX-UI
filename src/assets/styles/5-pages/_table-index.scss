@@ -1,5 +1,6 @@
-.table-index{
-    background-color: $clr-white;
-    border-radius: rem(4px);
-    height: 100%;
+.table-index {
+  background-color: $clr-white;
+  border-radius: rem(4px);
+  overflow: auto;
+
 }

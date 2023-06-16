@@ -23,6 +23,8 @@
     }
   }
   tbody {
+    overflow: auto;
+    height: 100%;
     td {
       border: 1px solid $clr-border;
       padding: 0.5rem;

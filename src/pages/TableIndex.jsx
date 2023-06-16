@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
+import { DataFilter } from '../cmps/DataFilter'
 
 export const TableIndex = () => {
   const [data, setData] = useState(null)
@@ -53,7 +54,7 @@ export const TableIndex = () => {
     }
   }
   return (
-    <section className='table-index flex align-items justify-center'>
+    <section className='table-index flex column align-items justify-center'>
       <DataFilter />
       {data ? (
         <TableData
