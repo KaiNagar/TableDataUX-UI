@@ -15,10 +15,21 @@ export const TableIndex = () => {
     setData(dataToUse)
   }
 
-  const onCellEdit = (rowId, columnId, elInput) => {
+  const onSaveCell = (rowId, columnId, elInput) => {
     if (!elInput) return
-    const newValue =
-      elInput.type === 'checkbox' ? elInput.checked : elInput.value
+    let newValue = ''
+    switch (elInput.type) {
+      case 'checkbox':
+        newValue = elInput.checked
+        break
+      case 'textarea':
+        newValue = JSON.parse(elInput.value)
+        break
+      default:
+        newValue = elInput.value
+        break
+    }
+    if(elInput?.name==='array') newValue = newValue.split()
     const updatedData = { ...data }
     const rowIndex = updatedData.rows.findIndex((row) => row.id === rowId)
     const columnIndex = updatedData.columns.findIndex(
@@ -33,7 +44,7 @@ export const TableIndex = () => {
   return (
     <section className='table-index flex align-items justify-center'>
       {data ? (
-        <TableData data={data} onCellEdit={onCellEdit} />
+        <TableData data={data} onSaveCell={onSaveCell} />
       ) : (
         <span>Loading Data...</span>
       )}

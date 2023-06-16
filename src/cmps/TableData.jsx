@@ -1,17 +1,26 @@
 import React, { useRef, useState } from 'react'
 
-export const TableData = ({ data, onCellEdit }) => {
+export const TableData = ({ data, onSaveCell }) => {
   const [editedCell, setEditedCell] = useState(null)
   const editedCellValueRef = useRef('')
 
+  const tdRef = useRef()
+  const [cellDimensions, setCellDimensions] = useState({ width: 0, height: 0 })
+
   const handleEditCell = (rowId, columnId, value) => {
-      setEditedCell({ rowId, columnId })
-      editedCellValueRef.current = value?.toString()
+    console.log(value)
+    const cell = tdRef.current
+    if (cell) {
+      const { width, height } = cell.getBoundingClientRect()
+      setCellDimensions({ width, height })
+    }
+    setEditedCell({ rowId, columnId })
+    editedCellValueRef.current = value?.toString()
   }
 
   const handleSaveCell = () => {
     if (editedCell) {
-      onCellEdit(
+      onSaveCell(
         editedCell.rowId,
         editedCell.columnId,
         editedCellValueRef.current
@@ -31,19 +40,24 @@ export const TableData = ({ data, onCellEdit }) => {
         <input
           type='checkbox'
           checked={cellValue}
-          onChange={(e) => onCellEdit(rowId, columnId, e.target.checked)}
+          onChange={(e) => onSaveCell(rowId, columnId, e.target.checked)}
         />
       )
-      // maybe not needed
-      // else if (typeof cellValue === 'number') {
-      //   return cellValue.toString()
-      // }
+    } else if (columnType === 'object') {
+      return (
+        <pre onClick={() => handleEditCell(rowId, columnId, cellValue)}>
+          {JSON.stringify(cellValue, null, 2)}
+        </pre>
+      )
+    } else if (columnType === 'array') {
+      if (cellValue) return cellValue?.join()
     }
+    // maybe not needed
     return cellValue
   }
 
   const onUserAction = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       handleSaveCell()
     } else if (e.key === 'Escape') {
       handleCancelEdit()
@@ -61,6 +75,54 @@ export const TableData = ({ data, onCellEdit }) => {
     }
   }
 
+  const renderCellEditElement = (column, cellValue) => {
+    const defaultArgs = {
+      onBlur: handleSaveCell,
+      onKeyDown: onUserAction,
+      ref: editedCellValueRef,
+      className:
+        column.type === 'object' ? 'textarea-cell-input' : 'edit-cell-input',
+    }
+    if (column.type === 'object') {
+      return (
+        <textarea
+          style={{
+            width: cellDimensions.width - 16,
+            height: cellDimensions.height - 16,
+          }}
+          defaultValue={JSON.stringify(cellValue, null, 2)}
+          {...defaultArgs}
+        ></textarea>
+      )
+    } else if (column.type === 'boolean') {
+      return (
+        <input
+          style={{ outline: 'none', margin: 0 }}
+          type='checkbox'
+          checked={cellValue}
+          {...defaultArgs}
+        />
+      )
+    } else {
+      return (
+        <input
+          name={column.type === 'array' ? 'array' : ''}
+          type={getInputType(column.type)}
+          defaultValue={cellValue}
+          {...defaultArgs}
+        />
+      )
+    }
+  }
+
+  const checkIsEditing = (row, column) => {
+    return (
+      editedCell &&
+      editedCell.rowId === row.id &&
+      editedCell.columnId === column.id
+    )
+  }
+
   return (
     <div className='table-data'>
       <table>
@@ -74,7 +136,7 @@ export const TableData = ({ data, onCellEdit }) => {
                   {column.title}
                 </th>
               ))}
-            {data.columns.length <= 5 && (
+            {data.columns.length < 5 && (
               <th title='Add a column' className='add-column-btn'>
                 +
               </th>
@@ -82,31 +144,27 @@ export const TableData = ({ data, onCellEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {/* diffrent cmp called <TableRowList rows={data.rows} onCellEdit={onCellEdit} /> */}
+          {/* diffrent cmp called <TableRowList rows={data.rows} onSaveCell={onSaveCell} /> */}
           {data.rows.map((row) => (
             <tr key={row.id}>
               {data.columns.map((column) => {
                 const cellValue = row[column.id]
-                const isEditing =
-                  editedCell &&
-                  editedCell.rowId === row.id &&
-                  editedCell.columnId === column.id
+                const isEditing = checkIsEditing(row, column)
+
                 return (
                   <td
+                    ref={tdRef}
                     key={`${row.id}-${column.id}`}
                     onClick={() =>
                       !isEditing && handleEditCell(row.id, column.id, cellValue)
                     }
+                    style={
+                      column.type === 'boolean' ? { textAlign: 'center' } : {}
+                    }
                   >
+                    {/* must make it more readable there are 2 short if nested */}
                     {isEditing ? (
-                      <input
-                        className='edit-cell-input'
-                        type={getInputType(column.type)}
-                        defaultValue={cellValue}
-                        onBlur={handleSaveCell}
-                        onKeyDown={onUserAction}
-                        ref={editedCellValueRef}
-                      />
+                      renderCellEditElement(column, cellValue)
                     ) : (
                       <span>
                         {renderCellValue(
@@ -122,11 +180,11 @@ export const TableData = ({ data, onCellEdit }) => {
               })}
             </tr>
           ))}
-          {(
+          {
             <tr>
               <td className='add-row-btn'>+</td>
             </tr>
-          )}
+          }
         </tbody>
       </table>
     </div>
