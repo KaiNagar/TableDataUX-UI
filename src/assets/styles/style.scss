@@ -1,15 +1,15 @@
 // setup
-@import "./1-setup/functions";
-@import "./1-setup/mixins";
-@import "./1-setup/typography";
-@import "./1-setup/variables";
+@import './1-setup/functions';
+@import './1-setup/mixins';
+@import './1-setup/typography';
+@import './1-setup/variables';
 
 // base
-@import "./2-base/base";
-@import "./2-base/helpers";
+@import './2-base/base';
+@import './2-base/helpers';
 
 // layout
-@import "./3-layout/main-layout";
+@import './3-layout/main-layout';
 
 // pages
 @import './5-pages/home-page';
@@ -18,6 +18,5 @@
 // cmps
 @import './4-cmps/app-header';
 @import './4-cmps/table-data';
+@import './4-cmps/new-column-modal';
 @import './4-cmps/app-footer';
-
-
