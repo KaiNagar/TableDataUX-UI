@@ -51,6 +51,20 @@ function _createData() {
                     type: 'boolean',
                     width: 100
                 },
+                {
+                    id: 'c103',
+                    ordinalNo: 3,
+                    title: 'Best Episodes',
+                    type: 'array',
+                    width: 150
+                },
+                {
+                    id: 'c104',
+                    ordinalNo: 4,
+                    title: 'Profile',
+                    type: 'object',
+                    width: 150
+                },
                 // adding column
                 // {
                 //     id: 'c103',
@@ -66,6 +80,8 @@ function _createData() {
                     c100: 'Kai Nagar',
                     c101: 25,
                     c102: true,
+                    c103:[5,12,14,'S3 E5'],
+                    
                 },
                 {
                     id: 'r201',
@@ -84,6 +100,7 @@ function _createData() {
                     c100: 'Zenitsu Agatsuma',
                     c101: 16,
                     c102: false,
+                    c104:{crush:'nezuko',breathingType:'thunder'}
                 },
                 //adding new row just need id
                 // {
