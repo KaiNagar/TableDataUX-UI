@@ -2,7 +2,9 @@ import { storageService } from "./async-storage.service"
 
 export const dataService = {
     query,
-    updateCell
+    save,
+    getEmptyRow,
+    getEmptycolumn
 }
 
 const STORAGE_KEY = 'dataDB'
@@ -10,19 +12,33 @@ const STORAGE_KEY = 'dataDB'
 _createData()
 
 
-function query(filterBy = {}) {
-    return storageService.query(STORAGE_KEY)
+async function query(filterBy = {}) {
+    return await storageService.query(STORAGE_KEY)
 }
 
-function updateCell(cell) {
-    return storageService.put(cell)
+
+function save(newData) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newData))
 }
 
-function getEmptyRow(){
-    return  {
-        id:_makeId()
+function getEmptyRow() {
+    return {
+        id: _makeId()
     }
 }
+
+function getEmptycolumn() {
+    let data = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    return {
+        id: _makeId(),
+        ordinalNo: data.columns.length,
+        title: '',
+        type: '',
+        width: 0
+    }
+}
+
+
 
 
 function _createData() {
@@ -80,8 +96,8 @@ function _createData() {
                     c100: 'Kai Nagar',
                     c101: 25,
                     c102: true,
-                    c103:[5,12,14,'S3 E5'],
-                    
+                    c103: [5, 12, 14, 'S3 E5'],
+
                 },
                 {
                     id: 'r201',
@@ -100,7 +116,7 @@ function _createData() {
                     c100: 'Zenitsu Agatsuma',
                     c101: 16,
                     c102: false,
-                    c104:{crush:'nezuko',breathingType:'thunder'}
+                    c104: { crush: 'nezuko', breathingType: 'thunder' }
                 },
                 //adding new row just need id
                 // {
