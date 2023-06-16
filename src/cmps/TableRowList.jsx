@@ -116,6 +116,7 @@ export const TableRowList = ({ rows, columns, onSaveCell, onAddRow }) => {
       editedCell.columnId === column.id
     )
   }
+
   return (
     <>
       {rows.map((row) => (
@@ -127,10 +128,10 @@ export const TableRowList = ({ rows, columns, onSaveCell, onAddRow }) => {
               <td
                 ref={tdRef}
                 key={`${row.id}-${column.id}`}
+                style={column.type === 'boolean' ? { textAlign: 'center' } : {}}
                 onClick={() =>
                   !isEditing && handleEditCell(row.id, column.id, cellValue)
                 }
-                style={column.type === 'boolean' ? { textAlign: 'center' } : {}}
               >
                 {isEditing && column.type !== 'boolean' ? (
                   renderCellEditElement(column, cellValue)
