@@ -29,13 +29,12 @@ export const TableIndex = () => {
         newValue = elInput.value
         break
     }
-    if(elInput?.name==='array') newValue = newValue.split()
+    if (elInput?.name === 'array') newValue = newValue.split()
     const updatedData = { ...data }
     const rowIndex = updatedData.rows.findIndex((row) => row.id === rowId)
     const columnIndex = updatedData.columns.findIndex(
       (column) => column.id === columnId
     )
-
     if (rowIndex !== -1 && columnIndex !== -1) {
       updatedData.rows[rowIndex][columnId] = newValue
       setData(updatedData)

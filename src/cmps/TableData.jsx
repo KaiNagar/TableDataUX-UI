@@ -8,7 +8,6 @@ export const TableData = ({ data, onSaveCell }) => {
   const [cellDimensions, setCellDimensions] = useState({ width: 0, height: 0 })
 
   const handleEditCell = (rowId, columnId, value) => {
-    console.log(value)
     const cell = tdRef.current
     if (cell) {
       const { width, height } = cell.getBoundingClientRect()
@@ -40,7 +39,7 @@ export const TableData = ({ data, onSaveCell }) => {
         <input
           type='checkbox'
           checked={cellValue}
-          onChange={(e) => onSaveCell(rowId, columnId, e.target.checked)}
+          onChange={(e) => onSaveCell(rowId, columnId, e.target)}
         />
       )
     } else if (columnType === 'object') {
@@ -80,8 +79,6 @@ export const TableData = ({ data, onSaveCell }) => {
       onBlur: handleSaveCell,
       onKeyDown: onUserAction,
       ref: editedCellValueRef,
-      className:
-        column.type === 'object' ? 'textarea-cell-input' : 'edit-cell-input',
     }
     if (column.type === 'object') {
       return (
@@ -90,24 +87,16 @@ export const TableData = ({ data, onSaveCell }) => {
             width: cellDimensions.width - 16,
             height: cellDimensions.height - 16,
           }}
+          className='textarea-cell-input'
           defaultValue={JSON.stringify(cellValue, null, 2)}
           {...defaultArgs}
         ></textarea>
-      )
-    } else if (column.type === 'boolean') {
-      return (
-        <input
-          style={{ outline: 'none', margin: 0 }}
-          type='checkbox'
-          checked={cellValue}
-          {...defaultArgs}
-        />
       )
     } else {
       return (
         <input
           name={column.type === 'array' ? 'array' : ''}
-          type={getInputType(column.type)}
+          className='edit-cell-input'
           defaultValue={cellValue}
           {...defaultArgs}
         />
@@ -163,7 +152,7 @@ export const TableData = ({ data, onSaveCell }) => {
                     }
                   >
                     {/* must make it more readable there are 2 short if nested */}
-                    {isEditing ? (
+                    {isEditing && column.type !== 'boolean' ? (
                       renderCellEditElement(column, cellValue)
                     ) : (
                       <span>
