@@ -18,6 +18,12 @@ function updateCell(cell) {
     return storageService.put(cell)
 }
 
+function getEmptyRow(){
+    return  {
+        id:_makeId()
+    }
+}
+
 
 function _createData() {
     let data = JSON.parse(localStorage.getItem(STORAGE_KEY))
@@ -44,7 +50,15 @@ function _createData() {
                     title: 'Is Admin',
                     type: 'boolean',
                     width: 100
-                }
+                },
+                // adding column
+                // {
+                //     id: 'c103',
+                //     ordinalNo: 3,
+                //     title: 'Rank',
+                //     type: 'string',
+                //     width: 200
+                // }
             ],
             rows: [
                 {
@@ -71,8 +85,22 @@ function _createData() {
                     c101: 16,
                     c102: false,
                 },
+                //adding new row just need id
+                // {
+                //     id: 'r204',
+                // },
             ]
         }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     }
+}
+
+
+function _makeId(length = 5) {
+    var text = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return text
 }

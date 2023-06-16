@@ -5,8 +5,8 @@ export const TableData = ({ data, onCellEdit }) => {
   const editedCellValueRef = useRef('')
 
   const handleEditCell = (rowId, columnId, value) => {
-    setEditedCell({ rowId, columnId })
-    editedCellValueRef.current = value.toString()
+      setEditedCell({ rowId, columnId })
+      editedCellValueRef.current = value?.toString()
   }
 
   const handleSaveCell = () => {
@@ -34,10 +34,10 @@ export const TableData = ({ data, onCellEdit }) => {
           onChange={(e) => onCellEdit(rowId, columnId, e.target.checked)}
         />
       )
-    // maybe not needed
-    // else if (typeof cellValue === 'number') {
-    //   return cellValue.toString()
-    // }
+      // maybe not needed
+      // else if (typeof cellValue === 'number') {
+      //   return cellValue.toString()
+      // }
     }
     return cellValue
   }
@@ -74,7 +74,7 @@ export const TableData = ({ data, onCellEdit }) => {
                   {column.title}
                 </th>
               ))}
-            {data.columns.length < 5 && (
+            {data.columns.length <= 5 && (
               <th title='Add a column' className='add-column-btn'>
                 +
               </th>
@@ -122,7 +122,7 @@ export const TableData = ({ data, onCellEdit }) => {
               })}
             </tr>
           ))}
-          {data.rows.length < 5 && (
+          {(
             <tr>
               <td className='add-row-btn'>+</td>
             </tr>
