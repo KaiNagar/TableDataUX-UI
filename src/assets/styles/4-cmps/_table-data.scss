@@ -44,6 +44,12 @@
         background-color: $clr-Lgrey;
       }
     }
+
+    .checkbox-cell-input{
+      margin: 0;
+      width:'min-content';
+      border-radius: rem(4px);
+    }
     
     .textarea-cell-input {
       font-size: rem(20px);
