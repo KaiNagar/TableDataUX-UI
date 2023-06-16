@@ -15,6 +15,17 @@ export const TableIndex = () => {
     setData(dataToUse)
   }
 
+  const onAddRow = () => {
+    const newRow = dataService.getEmptyRow()
+    const newData = { ...data, rows: [...data.rows, newRow] }
+    setData(newData)
+    dataService.save(newData)
+  }
+
+  const onAddColumn = () => {
+    console.log('adding column')
+  }
+
   const onSaveCell = (rowId, columnId, elInput) => {
     if (!elInput) return
     let newValue = ''
@@ -37,21 +48,20 @@ export const TableIndex = () => {
     )
     if (rowIndex !== -1 && columnIndex !== -1) {
       updatedData.rows[rowIndex][columnId] = newValue
-      const beforeChangeData = { ...data }
-      try {
-        setData(updatedData)
-        dataService.save(updatedData)
-        // add even buss modal
-      } catch (err) {
-        setData(beforeChangeData)
-        // add even buss modal
-      }
+      setData(updatedData)
+      dataService.save(updatedData)
     }
   }
   return (
     <section className='table-index flex align-items justify-center'>
+      <DataFilter />
       {data ? (
-        <TableData data={data} onSaveCell={onSaveCell} />
+        <TableData
+          onAddRow={onAddRow}
+          onAddColumn={onAddColumn}
+          data={data}
+          onSaveCell={onSaveCell}
+        />
       ) : (
         <span>Loading Data...</span>
       )}
