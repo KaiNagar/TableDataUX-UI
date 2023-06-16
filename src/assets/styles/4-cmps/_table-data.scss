@@ -25,19 +25,37 @@
   tbody {
     td {
       border: 1px solid $clr-border;
+      padding: 0.5rem;
+      margin: 0;
+      vertical-align: middle;
       &:hover {
         cursor: pointer;
         opacity: 0.8;
       }
     }
-    .edit-cell-input{
+    .edit-cell-input {
       font-size: rem(20px);
       width: 100%;
       height: 100%;
       padding: 0;
       border: none;
       outline: 2px solid $clr-main;
-      &:focus-visible{
+      &:focus-visible {
+        background-color: $clr-Lgrey;
+      }
+    }
+    
+    .textarea-cell-input {
+      font-size: rem(20px);
+      padding: 20px 0;
+      margin-bottom: -8px;
+      border: none;
+      outline: 2px solid $clr-main;
+      resize: none;
+      min-height: 100px;
+      line-height: normal;
+
+      &:focus-visible {
         background-color: $clr-Lgrey;
       }
     }
