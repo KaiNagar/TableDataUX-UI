@@ -9,8 +9,19 @@
       text-align: start;
       border: 1px solid $clr-border;
       color: $clr-black;
+      padding-inline: 0.5rem;
+      position: relative;
       &:first-of-type {
         border-top-left-radius: rem(40px);
+      }
+    }
+    .delete-column-btn{
+      position: absolute;
+      top: rem(2px);
+      right: rem(2px);
+      &:hover{
+        cursor: pointer;
+        color: $clr-Lgrey;
       }
     }
     .add-column-btn {
@@ -47,12 +58,12 @@
       }
     }
 
-    .checkbox-cell-input{
+    .checkbox-cell-input {
       margin: 0;
-      width:'min-content';
+      width: 'min-content';
       border-radius: rem(4px);
     }
-    
+
     .textarea-cell-input {
       font-size: rem(20px);
       padding: 20px 0;
@@ -85,13 +96,13 @@
       width: 60px;
       height: 34px;
     }
-    
+
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .slider {
       position: absolute;
       top: 0;
@@ -103,10 +114,10 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    
+
     .slider:before {
       position: absolute;
-      content: "";
+      content: '';
       height: 26px;
       width: 26px;
       left: 4px;
@@ -115,14 +126,13 @@
       border-radius: 50%;
       transition: transform 0.3s;
     }
-    
+
     input:checked + .slider {
       background-color: $clr-main;
     }
-    
+
     input:checked + .slider:before {
       transform: translateX(26px);
     }
-    
   }
 }
