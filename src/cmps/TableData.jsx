@@ -36,11 +36,16 @@ export const TableData = ({ data, onSaveCell }) => {
   const renderCellValue = (cellValue, columnType, rowId, columnId) => {
     if (columnType === 'boolean') {
       return (
-        <input
-          type='checkbox'
-          checked={cellValue}
-          onChange={(e) => onSaveCell(rowId, columnId, e.target)}
-        />
+        <>
+          <label className='toggle-switch'>
+            <input
+              type='checkbox'
+              checked={cellValue}
+              onChange={(e) => onSaveCell(rowId, columnId, e.target)}
+            />
+            <span className='slider'></span>
+          </label>
+        </>
       )
     } else if (columnType === 'object') {
       return (

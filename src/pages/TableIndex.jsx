@@ -37,7 +37,15 @@ export const TableIndex = () => {
     )
     if (rowIndex !== -1 && columnIndex !== -1) {
       updatedData.rows[rowIndex][columnId] = newValue
-      setData(updatedData)
+      const beforeChangeData = { ...data }
+      try {
+        setData(updatedData)
+        dataService.save(updatedData)
+        // add even buss modal
+      } catch (err) {
+        setData(beforeChangeData)
+        // add even buss modal
+      }
     }
   }
   return (
