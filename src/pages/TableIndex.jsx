@@ -3,9 +3,11 @@ import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
 import { DataFilter } from '../cmps/DataFilter'
+import { NewColumnModal } from '../cmps/NewColumnModal'
 
 export const TableIndex = () => {
   const [data, setData] = useState(null)
+  const [isNewColumnModalShow, setIsNewColumnModalShow] = useState(false)
 
   useEffectUpdate(() => {
     loadData()
@@ -23,8 +25,25 @@ export const TableIndex = () => {
     dataService.save(newData)
   }
 
-  const onAddColumn = () => {
-    console.log('adding column')
+  const onOpenColumnModal = () => {
+    setIsNewColumnModalShow(true)
+  }
+  const onCloseNewColumnModal = () => {
+    setIsNewColumnModalShow(false)
+  }
+
+  const onAddColumn = (newColumn) => {
+    const newData = { ...data, columns: [...data.columns, newColumn] }
+    setData(newData)
+    dataService.save(newData)
+    onCloseNewColumnModal()
+  }
+
+  const onRemoveColumn = (columnId) => {
+    const newColumns = data.columns.filter((c) => c.id !== columnId)
+    const newData = { ...data, columns: newColumns }
+    setData(newData)
+    dataService.save(newData)
   }
 
   const onSaveCell = (rowId, columnId, elInput) => {
@@ -53,18 +72,26 @@ export const TableIndex = () => {
       dataService.save(updatedData)
     }
   }
+
   return (
     <section className='table-index flex column align-items justify-center'>
       <DataFilter />
       {data ? (
         <TableData
           onAddRow={onAddRow}
-          onAddColumn={onAddColumn}
+          onOpenColumnModal={onOpenColumnModal}
           data={data}
           onSaveCell={onSaveCell}
+          onRemoveColumn={onRemoveColumn}
         />
       ) : (
         <span>Loading Data...</span>
+      )}
+      {isNewColumnModalShow && (
+        <NewColumnModal
+          onCloseNewColumnModal={onCloseNewColumnModal}
+          onAddColumn={onAddColumn}
+        />
       )}
     </section>
   )

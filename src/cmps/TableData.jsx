@@ -2,13 +2,13 @@ import React from 'react'
 import { TableHeaders } from './TableHeaders'
 import { TableRowList } from './TableRowList'
 
-export const TableData = ({ data, onSaveCell,onAddRow,onAddColumn }) => {
+export const TableData = ({ data, onSaveCell,onAddRow,onOpenColumnModal,onRemoveColumn }) => {
   
   return (
     <div className='table-data'>
       <table>
         <thead>
-          <TableHeaders onAddColumn={onAddColumn} columns={data.columns} />
+          <TableHeaders onRemoveColumn={onRemoveColumn} onOpenColumnModal={onOpenColumnModal} columns={data.columns} />
         </thead>
         <tbody>
           <TableRowList
