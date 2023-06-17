@@ -142,7 +142,7 @@ function getEmptyFilterBy() {
 
 function _createData() {
     let data = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (!data) {
+    if (!data.rows.length) {
         data = {
             columns: [
                 {
@@ -195,7 +195,7 @@ function _createData() {
                     c101: 25,
                     c102: true,
                     c103: [5, 12, 14, 'S3 E5'],
-                    c105:'hashira'
+                    c105: 'hashira'
 
                 },
                 {
@@ -203,22 +203,22 @@ function _createData() {
                     c100: 'Tanjiro Kamado',
                     c101: 13,
                     c102: true,
-                    c104: {  breathingType: 'sun' },
-                    c105:'hashira'
+                    c104: { breathingType: 'sun' },
+                    c105: 'hashira'
                 },
                 {
                     id: 'r202',
                     c100: 'Inosuke Hashibira',
                     c101: 15,
                     c102: false,
-                    c103:['S2E10'],
-                    c104: {  breathingType: 'beast' }
+                    c103: ['S2E10'],
+                    c104: { breathingType: 'beast' }
                 },
                 {
                     id: 'r203',
                     c100: 'Zenitsu Agatsuma',
                     c101: 16,
-                    c103:['S3E6'],
+                    c103: ['S3E6'],
                     c102: false,
                     c104: { crush: 'nezuko', breathingType: 'thunder' }
                 },
