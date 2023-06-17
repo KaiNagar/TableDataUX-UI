@@ -17,7 +17,7 @@ export const TableHeaders = ({
     setHoveredHeader(null)
   }
   return (
-    <tr>
+    <tr className='table-row-tr'>
       {columns
         .sort((c1, c2) => c1.ordinalNo - c2.ordinalNo)
         .map((column, idx) => (
