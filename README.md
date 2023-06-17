@@ -1,61 +1,23 @@
-<h1>Project Name</h1>
+<h1>Client-side Table Data</h1>
 
-<p>A brief description of your project.</p>
-
-<h2>Table of Contents</h2>
-
-<ul>
-  <li><a href="#overview">Overview</a></li>
-  <li><a href="#features">Features</a></li>
-  <li><a href="#demo">Demo</a></li>
-  <li><a href="#installation">Installation</a></li>
-  <li><a href="#usage">Usage</a></li>
-  <li><a href="#contributing">Contributing</a></li>
-  <li><a href="#license">License</a></li>
-  <li><a href="#contact">Contact</a></li>
-</ul>
-
-<h2>Overview</h2>
-
-<p>Provide an overview of your project, including its purpose and key features. Explain why you built it and who the target audience is.</p>
-
-<h2>Features</h2>
-
-<p>List the main features and functionalities of your project.</p>
-
-<h2>Demo</h2>
-
-<p>Include a link or provide instructions on how to access a live demo or video demo of your project.</p>
+<h2>About</h2>
+<p>The purpose of this project is to manage a large scale of data from different types, including strings, booleans, numbers, arrays, and objects. It allows users to edit each data item individually within a table and create new columns with a chosen type. Users can also create new rows and manually fill in the data within the table. The project includes filtering capabilities by columns and rows using text and numbers.</p>
 
 <h2>Installation</h2>
-
-<p>Provide step-by-step instructions on how to install and set up your project locally. Include any prerequisites or dependencies that need to be installed.</p>
-
-<pre><code>
-# Clone the repository
-git clone &lt;repository-url&gt;
-
-# Install dependencies
-npm install
-</code></pre>
+<p>To install the project locally, follow these steps:</p>
+<ol>
+  <li>Clone the repository:</li>
+  <pre><code>git clone https://github.com/KaiNagar/TableDataUX-UI.git</code></pre>
+  <li>Navigate to the project directory:</li>
+  <pre><code>cd TableDataUX-UI</code></pre>
+  <li>Install the required dependencies:</li>
+  <pre><code>npm install</code></pre>
+</ol>
 
 <h2>Usage</h2>
+<p>To run the project locally, use the following command:</p>
+<pre><code>npm start</code></pre>
 
-<p>Provide instructions on how to use your project. Include any necessary commands or configuration.</p>
+<p>To access the project via GitHub Pages, visit the following link: <a href="https://kainagar.github.io/TableDataUX-UI/">TableDataUX-UI</a></p>
 
-<pre><code>
-# Run the project
-npm start
-</code></pre>
-
-<h2>Contributing</h2>
-
-<p>Explain how others can contribute to your project. Include guidelines for submitting bug reports, feature requests, or pull requests. Mention any coding standards or conventions that contributors should follow.</p>
-
-<h2>License</h2>
-
-<p>Specify the license under which your project is released. For example, you can use the MIT License, Apache License, or any other open-source license that suits your project.</p>
-
-<h2>Contact</h2>
-
-<p>Provide your contact information so that others can reach out to you with questions, feedback, or inquiries.</p>
+<p>This project can be used to manage various types of data, such as employee lists with their responsibilities or weekly schedules that can be modified each week by the admin. For more advanced versions, consider implementing user authentication, authorization, and activity tracking to enhance user management capabilities.</p>
