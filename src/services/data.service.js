@@ -9,7 +9,8 @@ export const dataService = {
     addRow,
     removeRow,
     addColumn,
-    removeColumn
+    removeColumn,
+    updateCell
 }
 
 const STORAGE_KEY = 'dataDB'
@@ -94,6 +95,17 @@ async function removeColumn(columnId) {
         throw new Error('Could not remove column')
     }
 
+}
+
+async function updateCell(rowIdx, columnId, value) {
+    try {
+        let data = await storageService.query(STORAGE_KEY)
+        data.rows[rowIdx][columnId] = value
+        save(data)
+        return data
+    } catch (err) {
+        throw new Error('Could not update cell')
+    }
 }
 
 

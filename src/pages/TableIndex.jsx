@@ -4,45 +4,34 @@ import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
 import { DataFilter } from '../cmps/DataFilter'
 import { NewColumnModal } from '../cmps/NewColumnModal'
+import { useSelector } from 'react-redux'
+import {
+  addColumn,
+  addRow,
+  loadData,
+  removeColumn,
+  removeRow,
+  setFilter,
+  updateCell,
+} from '../store/actions/dataActions'
 
 export const TableIndex = () => {
-  const [data, setData] = useState(null)
+  const { data } = useSelector((state) => state.dataModule)
   const [isNewColumnModalShow, setIsNewColumnModalShow] = useState(false)
 
-  const [filterBy, setFilterBy] = useState(dataService.getEmptyFilterBy())
+  const { filterBy } = useSelector((state) => state.dataModule)
   const [allColumns, setAllColumns] = useState()
   const isFirstRender = useRef(true)
 
   useEffect(() => {
-    loadData(filterBy)
+    onLoadingData()
   }, [filterBy])
 
-  const loadData = async (filterBy) => {
-    const dataToUse = await dataService.query(filterBy)
+  const onLoadingData = async () => {
+    const updatedData = await loadData(filterBy)
     if (isFirstRender.current) {
       isFirstRender.current = false
-      setAllColumns(dataToUse.columns)
-    }
-    setData(dataToUse)
-  }
-
-  const onAddRow = async () => {
-    try {
-      const newData = await dataService.addRow()
-      setData(newData)
-    } catch (err) {
-      console.error(err)
-      // eventbus
-    }
-  }
-
-  const onRemoveRow = async (rowId) => {
-    try {
-      const newData = await dataService.removeRow(rowId)
-      setData(newData)
-    } catch (err) {
-      console.error(err)
-      // eventbus
+      setAllColumns(updatedData.columns)
     }
   }
 
@@ -51,31 +40,6 @@ export const TableIndex = () => {
   }
   const onCloseNewColumnModal = () => {
     setIsNewColumnModalShow(false)
-  }
-
-  const onAddColumn = async (newColumn) => {
-    try {
-      const newData = await dataService.addColumn(newColumn)
-      setData(newData)
-      onCloseNewColumnModal()
-    } catch (err) {
-      console.error(err)
-      // eventbus
-    }
-  }
-
-  const onRemoveColumn = async (columnId) => {
-    try {
-      const newData = await dataService.removeColumn(columnId)
-      setData(newData)
-    } catch (err) {
-      console.error(err)
-      // eventbus
-    }
-  }
-
-  const onSetFilterBy = (newFilter) => {
-    setFilterBy(newFilter)
   }
 
   const onSaveCell = (rowId, columnId, elInput) => {
@@ -93,30 +57,26 @@ export const TableIndex = () => {
         break
     }
     if (elInput?.name === 'array') newValue = newValue.split()
-    const updatedData = { ...data }
-    const rowIndex = updatedData.rows.findIndex((row) => row.id === rowId)
-    const columnIndex = updatedData.columns.findIndex(
+    const rowIndex = data.rows.findIndex((row) => row.id === rowId)
+    const columnIndex = data.columns.findIndex(
       (column) => column.id === columnId
     )
     if (rowIndex !== -1 && columnIndex !== -1) {
-      updatedData.rows[rowIndex][columnId] = newValue
-      setData(updatedData)
-      dataService.save(updatedData)
+      updateCell(rowIndex, columnId, newValue)
     }
   }
-
   return (
     <section className='table-index flex column align-items justify-center'>
-      {data ? (
+      {data.columns && data.rows ? (
         <>
-          <DataFilter onSetFilterBy={onSetFilterBy} columns={allColumns} />
+          <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
           <TableData
-            onAddRow={onAddRow}
+            onAddRow={addRow}
             onOpenColumnModal={onOpenColumnModal}
             data={data}
             onSaveCell={onSaveCell}
-            onRemoveColumn={onRemoveColumn}
-            onRemoveRow={onRemoveRow}
+            onRemoveColumn={removeColumn}
+            onRemoveRow={removeRow}
           />
         </>
       ) : (
@@ -125,7 +85,7 @@ export const TableIndex = () => {
       {isNewColumnModalShow && (
         <NewColumnModal
           onCloseNewColumnModal={onCloseNewColumnModal}
-          onAddColumn={onAddColumn}
+          onAddColumn={addColumn}
         />
       )}
     </section>
