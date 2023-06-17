@@ -64,26 +64,23 @@ export const TableIndex = () => {
       updateCell(rowIndex, columnId, newValue)
     }
   }
-  const checkIfDataReady = ()=>{
-    if(!data)return false
-    if(!data.rows||!data.columns)return false
-    return true
-  }
   return (
     <section className='table-index flex column align-items justify-center'>
-      {checkIfDataReady()? (
+      {data ? (
         <>
           {allColumns && (
             <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
           )}
-          <TableData
-            onAddRow={addRow}
-            onOpenColumnModal={onOpenColumnModal}
-            data={data}
-            onSaveCell={onSaveCell}
-            onRemoveColumn={removeColumn}
-            onRemoveRow={removeRow}
-          />
+          {(data.rows && data.columns) && (
+            <TableData
+              onAddRow={addRow}
+              onOpenColumnModal={onOpenColumnModal}
+              data={data}
+              onSaveCell={onSaveCell}
+              onRemoveColumn={removeColumn}
+              onRemoveRow={removeRow}
+            />
+          )}
         </>
       ) : (
         <span>Loading Data...</span>
