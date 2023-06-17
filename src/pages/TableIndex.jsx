@@ -67,7 +67,7 @@ export const TableIndex = () => {
   }
   return (
     <section className='table-index flex column align-items justify-center'>
-      {data.columns && data.rows ? (
+      {data?.columns && data?.rows ? (
         <>
           {allColumns && (
             <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
