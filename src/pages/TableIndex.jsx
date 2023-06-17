@@ -23,7 +23,7 @@ export const TableIndex = () => {
   const [allColumns, setAllColumns] = useState()
   const isFirstRender = useRef(true)
 
-  useEffect(() => {
+  useEffectUpdate(() => {
     onLoadingData()
   }, [filterBy])
 
@@ -69,7 +69,9 @@ export const TableIndex = () => {
     <section className='table-index flex column align-items justify-center'>
       {data.columns && data.rows ? (
         <>
-          <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
+          {allColumns && (
+            <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
+          )}
           <TableData
             onAddRow={addRow}
             onOpenColumnModal={onOpenColumnModal}

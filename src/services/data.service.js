@@ -195,6 +195,7 @@ function _createData() {
                     c101: 25,
                     c102: true,
                     c103: [5, 12, 14, 'S3 E5'],
+                    c105:'hashira'
 
                 },
                 {
@@ -202,18 +203,22 @@ function _createData() {
                     c100: 'Tanjiro Kamado',
                     c101: 13,
                     c102: true,
-                    c103:['all']
+                    c104: {  breathingType: 'sun' },
+                    c105:'hashira'
                 },
                 {
                     id: 'r202',
                     c100: 'Inosuke Hashibira',
                     c101: 15,
                     c102: false,
+                    c103:['S2E10'],
+                    c104: {  breathingType: 'beast' }
                 },
                 {
                     id: 'r203',
                     c100: 'Zenitsu Agatsuma',
                     c101: 16,
+                    c103:['S3E6'],
                     c102: false,
                     c104: { crush: 'nezuko', breathingType: 'thunder' }
                 },

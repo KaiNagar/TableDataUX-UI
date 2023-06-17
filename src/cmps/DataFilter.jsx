@@ -54,7 +54,7 @@ export const DataFilter = ({ onSetFilterBy, columns }) => {
     <section className='data-filter flex column align-center'>
       <div className='filters-containers flex space-between'>
         <div className='column-filter-container'>
-          <h1 className='columns-filter-header'>Filter by columns:</h1>
+          <h1 className='columns-filter-header' title='Mark the columns you want to see'>Filter by columns:</h1>
           <div className='check-boxes-container'>
             {columns.map((column) => (
               <label key={column.id}>
@@ -77,7 +77,7 @@ export const DataFilter = ({ onSetFilterBy, columns }) => {
           </div>
         </div>
         <div className='rows-filter-container'>
-          <h1 className='rows-filter-header'>Filter by rows:</h1>
+          <h1 className='rows-filter-header' title='Enter the values you want to see'>Filter by rows:</h1>
           <div className='rows-inputs-container flex'>
             <div className=''>
               <label htmlFor='byName'>By name:</label>

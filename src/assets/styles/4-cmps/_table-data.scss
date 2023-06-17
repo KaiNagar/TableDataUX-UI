@@ -1,5 +1,7 @@
 .table-data {
   margin: 1rem;
+  max-height: 548px;
+  overflow: auto;
   table {
     font-size: rem(20px);
     border-collapse: collapse;
