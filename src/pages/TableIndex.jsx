@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useEffectUpdate } from '../customHooks/useEffectUpdate'
-import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
 import { DataFilter } from '../cmps/DataFilter'
 import { NewColumnModal } from '../cmps/NewColumnModal'

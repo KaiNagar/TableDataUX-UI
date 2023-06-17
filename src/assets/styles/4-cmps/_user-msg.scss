@@ -1,0 +1,18 @@
+.user-msg {
+  padding: 0.8rem 1.6rem;
+  outline: 2px solid $clr-border;
+  border-radius: rem(4px);
+  color: $clr-white;
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+  transition: all 0.3;
+}
+.success {
+  background-color: $clr-success;
+}
+
+.error {
+  background-color: $clr-warning;
+}

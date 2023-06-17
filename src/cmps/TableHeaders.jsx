@@ -26,6 +26,7 @@ export const TableHeaders = ({
             onMouseLeave={handleMouseLeave}
             key={column.id}
             style={{ width: column.width }}
+            title={column.title.charAt(0).toUpperCase() + column.title.slice(1)}
           >
             {column.title.charAt(0).toUpperCase() + column.title.slice(1)}
             {hoveredHeader === idx && (

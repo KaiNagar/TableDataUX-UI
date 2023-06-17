@@ -6,6 +6,7 @@ import { Home } from './pages/Home'
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { TableIndex } from './pages/TableIndex'
+import { UserMsg } from './cmps/UserMsg'
 
 export function App() {
   return (
@@ -21,6 +22,7 @@ export function App() {
           </div>
         </div>
         <AppFooter />
+        <UserMsg />
       </div>
     </Router>
   )
