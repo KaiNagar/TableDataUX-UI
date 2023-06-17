@@ -1,11 +1,29 @@
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRef, useState } from 'react'
 
-export const TableRowList = ({ rows, columns, onSaveCell, onAddRow }) => {
+export const TableRowList = ({
+  rows,
+  columns,
+  onSaveCell,
+  onAddRow,
+  onRemoveRow,
+}) => {
   const [editedCell, setEditedCell] = useState(null)
   const editedCellValueRef = useRef('')
 
   const tdRef = useRef()
   const [cellDimensions, setCellDimensions] = useState({ width: 0, height: 0 })
+
+  const [hoveredRow, setHoveredRow] = useState(null)
+
+  const handleMouseEnter = (index) => {
+    setHoveredRow(index)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredRow(null)
+  }
 
   const handleEditCell = (rowId, columnId, value) => {
     const cell = tdRef.current
@@ -119,8 +137,13 @@ export const TableRowList = ({ rows, columns, onSaveCell, onAddRow }) => {
 
   return (
     <>
-      {rows.map((row) => (
-        <tr key={row.id}>
+      {rows.map((row, idx) => (
+        <tr
+          className='table-row-tr'
+          onMouseEnter={() => handleMouseEnter(idx)}
+          onMouseLeave={handleMouseLeave}
+          key={row.id}
+        >
           {columns.map((column) => {
             const cellValue = row[column.id]
             const isEditing = checkIsEditing(row, column)
@@ -143,6 +166,13 @@ export const TableRowList = ({ rows, columns, onSaveCell, onAddRow }) => {
               </td>
             )
           })}
+          {hoveredRow === idx && (
+            <FontAwesomeIcon
+              className='delete-row-btn'
+              icon={faTrashCan}
+              onClick={() => onRemoveRow(row.id)}
+            />
+          )}
         </tr>
       ))}
       {
