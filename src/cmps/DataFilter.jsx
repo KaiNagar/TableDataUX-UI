@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const DataFilter = ({onSetFilterBy, columns }) => {
+export const DataFilter = ({ onSetFilterBy, columns }) => {
   const [selectedColumns, setSelectedColumns] = useState([])
 
   const handleCheckboxChange = (columnId) => {
@@ -17,11 +17,11 @@ export const DataFilter = ({onSetFilterBy, columns }) => {
   const handleAllCheckboxChange = () => {
     if (selectedColumns.length === columns.length) {
       // All columns are selected, deselect all columns
-      setSelectedColumns([]);
+      setSelectedColumns([])
     } else {
       // Not all columns are selected, select all columns
-      const allColumnIds = columns.map((column) => column.id);
-      setSelectedColumns(allColumnIds);
+      const allColumnIds = columns.map((column) => column.id)
+      setSelectedColumns(allColumnIds)
     }
   }
 
@@ -29,26 +29,39 @@ export const DataFilter = ({onSetFilterBy, columns }) => {
     onSetFilterBy(selectedColumns)
   }
   return (
-    <section className='data-filter'>
-      {columns.map((column) => (
-        <label key={column.id}>
-          <input
-            type='checkbox'
-            checked={selectedColumns.includes(column.id)}
-            onChange={() => handleCheckboxChange(column.id)}
-          />
-          {column.title}
-        </label>
-      ))}
-       <label>
-        <input
-          type="checkbox"
-          checked={selectedColumns.length === columns.length}
-          onChange={handleAllCheckboxChange}
-        />
-        Select All
-      </label>
-      <button onClick={handleFilter}>Filter</button>
+    <section className='data-filter flex column align-center'>
+      <div className='filters-containers flex space-around'>
+        <div className='column-filter-container'>
+          <h1 className='columns-filter-header'>Filter by columns:</h1>
+          <div className='check-boxes-container'>
+            {columns.map((column) => (
+              <label key={column.id}>
+                <input
+                  type='checkbox'
+                  checked={selectedColumns.includes(column.id)}
+                  onChange={() => handleCheckboxChange(column.id)}
+                />
+                {column.title}
+              </label>
+            ))}
+            <label>
+              <input
+                type='checkbox'
+                checked={selectedColumns.length === columns.length}
+                onChange={handleAllCheckboxChange}
+              />
+              Select All
+            </label>
+          </div>
+        </div>
+        <div className='rows-filter-container'>
+          <h1 className='rows-filter-header'>Filter by rows:</h1>
+          <input type='text' />
+        </div>
+      </div>
+      <button className='filter-btn' onClick={handleFilter}>
+        Filter
+      </button>
     </section>
   )
 }
