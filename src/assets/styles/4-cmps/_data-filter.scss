@@ -1,10 +1,11 @@
 .data-filter {
-  margin: 1rem;
-  .filters-containers{
+  margin: 1rem 1rem 0 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $clr-border;
+  .filters-containers {
     width: 100%;
   }
-  .columns-filter-header,
-  .rows-filter-header {
+  .columns-filter-header {
     font-size: 1rem;
     padding-inline-start: 0.25rem;
   }
@@ -22,8 +23,30 @@
     cursor: pointer;
     border: none;
     margin-top: 0.5rem;
+    text-align: center;
+    align-self: center;
     &:hover {
       background-color: $clr-LightMain;
+    }
+  }
+
+  .rows-filter-header {
+    font-size: 1rem;
+  }
+  .rows-inputs-container {
+    gap: 0.5rem;
+    input {
+      padding: 0.5rem;
+      border-radius: rem(4px);
+      border: 2px solid $clr-main;
+      width: 100%;
+      &:focus-visible {
+        outline: none;
+        background-color: $clr-Lgrey;
+      }
+    }
+    label {
+      font-size: rem(14px);
     }
   }
 }
