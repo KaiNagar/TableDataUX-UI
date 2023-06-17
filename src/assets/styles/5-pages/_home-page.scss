@@ -1,3 +1,19 @@
 .home-page{
+    text-align: center;
+    color: $clr-white;
+    .home-header{
+        font-size: rem(34px);
+        font-weight: 600;
+    }
+    .action{
+        margin-top: 2rem;
+    }
+    .home-link{
+        text-decoration: none;
+        font-size: rem(34px);
+        &:hover{
+            color: $clr-Lgrey;
+        }
+    }
     
 }
