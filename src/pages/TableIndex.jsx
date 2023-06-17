@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 import { dataService } from '../services/data.service'
 import { TableData } from '../cmps/TableData'
@@ -13,7 +13,7 @@ export const TableIndex = () => {
   const [allColumns, setAllColumns] = useState()
   const isFirstRender = useRef(true)
 
-  useEffectUpdate(() => {
+  useEffect(() => {
     loadData(filterBy)
   }, [filterBy])
 
@@ -26,11 +26,24 @@ export const TableIndex = () => {
     setData(dataToUse)
   }
 
-  const onAddRow = () => {
-    const newRow = dataService.getEmptyRow()
-    const newData = { ...data, rows: [...data.rows, newRow] }
-    setData(newData)
-    dataService.save(newData)
+  const onAddRow = async () => {
+    try {
+      const newData = await dataService.addRow()
+      setData(newData)
+    } catch (err) {
+      console.error(err)
+      // eventbus
+    }
+  }
+
+  const onRemoveRow = async (rowId) => {
+    try {
+      const newData = await dataService.removeRow(rowId)
+      setData(newData)
+    } catch (err) {
+      console.error(err)
+      // eventbus
+    }
   }
 
   const onOpenColumnModal = () => {
@@ -40,18 +53,25 @@ export const TableIndex = () => {
     setIsNewColumnModalShow(false)
   }
 
-  const onAddColumn = (newColumn) => {
-    const newData = { ...data, columns: [...data.columns, newColumn] }
-    setData(newData)
-    dataService.save(newData)
-    onCloseNewColumnModal()
+  const onAddColumn = async (newColumn) => {
+    try {
+      const newData = await dataService.addColumn(newColumn)
+      setData(newData)
+      onCloseNewColumnModal()
+    } catch (err) {
+      console.error(err)
+      // eventbus
+    }
   }
 
-  const onRemoveColumn = (columnId) => {
-    const newColumns = data.columns.filter((c) => c.id !== columnId)
-    const newData = { ...data, columns: newColumns }
-    setData(newData)
-    dataService.save(newData)
+  const onRemoveColumn = async (columnId) => {
+    try {
+      const newData = await dataService.removeColumn(columnId)
+      setData(newData)
+    } catch (err) {
+      console.error(err)
+      // eventbus
+    }
   }
 
   const onSetFilterBy = (columnsId) => {
@@ -97,6 +117,7 @@ export const TableIndex = () => {
             data={data}
             onSaveCell={onSaveCell}
             onRemoveColumn={onRemoveColumn}
+            onRemoveRow={onRemoveRow}
           />
         </>
       ) : (
