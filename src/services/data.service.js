@@ -65,7 +65,7 @@ async function addRow() {
         const newRow = getEmptyRow()
         const newData = { ...data, rows: [...data.rows, newRow] }
         save(newData)
-        return newData
+        return newRow
     } catch (err) {
         throw new Error('Could not add row')
     }
@@ -77,7 +77,7 @@ async function addColumn(newColumn) {
         let data = await storageService.query(STORAGE_KEY)
         const newData = { ...data, columns: [...data.columns, newColumn] }
         save(newData)
-        return newData
+        return newColumn
     } catch (err) {
         throw new Error('Could not add column')
     }
