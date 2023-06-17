@@ -19,8 +19,31 @@ _createData()
 
 async function query(filterBy = {}) {
     let data = await storageService.query(STORAGE_KEY)
+    // filtering columns
     if (filterBy.columns.length) {
         data.columns = data.columns.filter(c => filterBy.columns.includes(c.id))
+    }
+    // filtering rows
+    if (filterBy.text) {
+        const regex = new RegExp(filterBy.text, 'i')
+        const stringColumnsIds = data.columns.map(c => c.type === 'string' ? c.id : '')
+        data.rows = data.rows.filter((row) => {
+            for (const columnId of stringColumnsIds) {
+                const cellValue = row[columnId]
+                if (regex.test(cellValue)) return true;
+            }
+            return false;
+        })
+    }
+    if (filterBy.minAge) {
+        const numberColumnsIds = data.columns.map(c => c.type === 'number' ? c.id : '')
+        data.rows = data.rows.filter(row => {
+            for (const columnId of numberColumnsIds) {
+                const cellValue = row[columnId]
+                if (cellValue > filterBy.minAge) return true;
+            }
+            return false;
+        })
     }
     return data
 }
