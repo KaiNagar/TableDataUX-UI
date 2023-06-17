@@ -1,7 +1,17 @@
+import { useEffect } from 'react'
 import { useState } from 'react'
 
 export const DataFilter = ({ onSetFilterBy, columns }) => {
   const [selectedColumns, setSelectedColumns] = useState([])
+
+  const [rowFilter, setRowFilter] = useState({ text: '', minAge: '' })
+  useEffect(() => {
+    onSetFilterBy({
+      columns: selectedColumns,
+      text: rowFilter.text,
+      minAge: rowFilter.minAge,
+    })
+  }, [rowFilter])
 
   const handleCheckboxChange = (columnId) => {
     setSelectedColumns((prevSelectedColumns) => {
@@ -25,12 +35,24 @@ export const DataFilter = ({ onSetFilterBy, columns }) => {
     }
   }
 
+  const handleRowFilterChange = ({ target }) => {
+    const { name: field, value, type } = target
+    setRowFilter((prevState) => ({
+      ...prevState,
+      [field]: type === 'number' ? +value : value,
+    }))
+  }
+
   const handleFilter = () => {
-    onSetFilterBy(selectedColumns)
+    onSetFilterBy({
+      columns: selectedColumns,
+      text: rowFilter.text,
+      minAge: rowFilter.minAge,
+    })
   }
   return (
     <section className='data-filter flex column align-center'>
-      <div className='filters-containers flex space-around'>
+      <div className='filters-containers flex space-between'>
         <div className='column-filter-container'>
           <h1 className='columns-filter-header'>Filter by columns:</h1>
           <div className='check-boxes-container'>
@@ -56,12 +78,35 @@ export const DataFilter = ({ onSetFilterBy, columns }) => {
         </div>
         <div className='rows-filter-container'>
           <h1 className='rows-filter-header'>Filter by rows:</h1>
-          <input type='text' />
+          <div className='rows-inputs-container flex'>
+            <div className=''>
+              <label htmlFor='byName'>By name:</label>
+              <input
+                type='text'
+                id='byName'
+                value={rowFilter.text}
+                name='text'
+                onChange={handleRowFilterChange}
+                placeholder='Search by name'
+              />
+            </div>
+            <div className=''>
+              <label htmlFor='byAge'>By age:</label>
+              <input
+                id='byAge'
+                type='number'
+                value={rowFilter.minAge}
+                name='minAge'
+                onChange={handleRowFilterChange}
+                placeholder='Search by min age'
+              />
+            </div>
+          </div>
         </div>
+        <button className='filter-btn' onClick={handleFilter}>
+          Filter
+        </button>
       </div>
-      <button className='filter-btn' onClick={handleFilter}>
-        Filter
-      </button>
     </section>
   )
 }

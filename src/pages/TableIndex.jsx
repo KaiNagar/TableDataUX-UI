@@ -74,9 +74,8 @@ export const TableIndex = () => {
     }
   }
 
-  const onSetFilterBy = (columnsId) => {
-    console.log(columnsId)
-    setFilterBy((prevFilter) => ({ ...prevFilter, columns: columnsId }))
+  const onSetFilterBy = (newFilter) => {
+    setFilterBy(newFilter)
   }
 
   const onSaveCell = (rowId, columnId, elInput) => {
