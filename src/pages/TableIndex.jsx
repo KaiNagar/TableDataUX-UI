@@ -64,9 +64,14 @@ export const TableIndex = () => {
       updateCell(rowIndex, columnId, newValue)
     }
   }
+  const checkIfDataReady = ()=>{
+    if(!data)return false
+    if(!data.rows||!data.columns)return false
+    return true
+  }
   return (
     <section className='table-index flex column align-items justify-center'>
-      {data?.columns && data?.rows ? (
+      {checkIfDataReady()? (
         <>
           {allColumns && (
             <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
