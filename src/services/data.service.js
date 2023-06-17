@@ -142,7 +142,7 @@ function getEmptyFilterBy() {
 
 function _createData() {
     let data = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (!data.rows.length) {
+    if (!data) {
         data = {
             columns: [
                 {
