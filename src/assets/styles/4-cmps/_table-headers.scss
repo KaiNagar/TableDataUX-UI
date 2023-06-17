@@ -1,0 +1,29 @@
+thead {
+    th {
+      text-align: start;
+      border: 1px solid $clr-border;
+      color: $clr-black;
+      padding-inline: 0.5rem;
+      position: relative;
+      &:first-of-type {
+        border-top-left-radius: rem(40px);
+      }
+    }
+    .delete-column-btn {
+      position: absolute;
+      top: rem(2px);
+      right: rem(2px);
+      &:hover {
+        cursor: pointer;
+        color: $clr-Lgrey;
+      }
+    }
+    .add-column-btn {
+      text-align: center;
+      padding-inline: rem(9px);
+      &:hover {
+        cursor: pointer;
+        color: $clr-main;
+      }
+    }
+  }

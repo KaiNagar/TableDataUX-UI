@@ -1,0 +1,116 @@
+tbody {
+    overflow: auto;
+    height: 100%;
+    td {
+      border: 1px solid $clr-border;
+      padding: 0.5rem;
+      margin: 0;
+      vertical-align: middle;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+    .edit-cell-input {
+      font-size: rem(20px);
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: none;
+      outline: 2px solid $clr-main;
+      &:focus-visible {
+        background-color: $clr-Lgrey;
+      }
+    }
+
+    .checkbox-cell-input {
+      margin: 0;
+      width: 'min-content';
+      border-radius: rem(4px);
+    }
+
+    .textarea-cell-input {
+      font-size: rem(20px);
+      padding: 20px 0;
+      margin-bottom: -8px;
+      border: none;
+      outline: 2px solid $clr-main;
+      resize: none;
+      min-height: 100px;
+      line-height: normal;
+
+      &:focus-visible {
+        background-color: $clr-Lgrey;
+      }
+    }
+    .add-row-btn {
+      text-align: center;
+      padding-inline: rem(9px);
+      background-color: transparent;
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        color: $clr-main;
+      }
+    }
+
+    .table-row-tr {
+      position: relative;
+    }
+
+    .delete-row-btn {
+      position: absolute;
+      top: 50%;
+      right: rem(8px);
+      transform: translateY(-50%);
+      &:hover {
+        cursor: pointer;
+        color: $clr-Lgrey;
+      }
+    }
+    // slider styling
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $clr-Lgrey;
+      border-radius: 34px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: '';
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: $clr-white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    input:checked + .slider {
+      background-color: $clr-main;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  }
