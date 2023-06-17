@@ -5,7 +5,11 @@ export const dataService = {
     save,
     getEmptyRow,
     getEmptycolumn,
-    getEmptyFilterBy
+    getEmptyFilterBy,
+    addRow,
+    removeRow,
+    addColumn,
+    removeColumn
 }
 
 const STORAGE_KEY = 'dataDB'
@@ -19,7 +23,53 @@ async function query(filterBy = {}) {
         data.columns = data.columns.filter(c => filterBy.columns.includes(c.id))
     }
     return data
+}
 
+async function removeRow(rowId) {
+    try {
+        let data = await storageService.query(STORAGE_KEY)
+        data.rows = data.rows.filter(r => r.id !== rowId)
+        save(data)
+        return data
+    } catch (err) {
+        throw new Error('Could not remove row')
+    }
+}
+
+async function addRow() {
+    try {
+        let data = await storageService.query(STORAGE_KEY)
+        const newRow = getEmptyRow()
+        const newData = { ...data, rows: [...data.rows, newRow] }
+        save(newData)
+        return newData
+    } catch (err) {
+        throw new Error('Could not add row')
+    }
+
+}
+
+async function addColumn(newColumn) {
+    try {
+        let data = await storageService.query(STORAGE_KEY)
+        const newData = { ...data, columns: [...data.columns, newColumn] }
+        save(newData)
+        return newData
+    } catch (err) {
+        throw new Error('Could not add column')
+    }
+}
+
+async function removeColumn(columnId) {
+    try {
+        let data = await storageService.query(STORAGE_KEY)
+        const newColumns = data.columns.filter((c) => c.id !== columnId)
+        const newData = { ...data, columns: newColumns }
+        save(newData)
+        return newData
+    } catch (err) {
+        throw new Error('Could not remove column')
+    }
 
 }
 
