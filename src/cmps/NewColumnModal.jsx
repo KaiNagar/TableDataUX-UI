@@ -19,6 +19,7 @@ export const NewColumnModal = ({
       return
     }
     onAddColumn(newColumn)
+    onCloseNewColumnModal()
   }
 
   return (

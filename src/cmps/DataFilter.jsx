@@ -11,7 +11,7 @@ export const DataFilter = ({ onSetFilterBy, columns }) => {
       text: rowFilter.text,
       minAge: rowFilter.minAge,
     })
-  }, [rowFilter])
+  }, [rowFilter,selectedColumns])
 
   const handleCheckboxChange = (columnId) => {
     setSelectedColumns((prevSelectedColumns) => {

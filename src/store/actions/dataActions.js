@@ -32,9 +32,11 @@ export async function removeRow(rowId) {
     }
 }
 export async function addColumn(column) {
+    console.log(column);
     try {
         const newColumn = await dataService.addColumn(column)
-        store.dispatch({ type: ADD_COLUMN, row: newColumn })
+        store.dispatch({ type: ADD_COLUMN, column: newColumn })
+        return newColumn
     } catch (err) {
         throw err
     }

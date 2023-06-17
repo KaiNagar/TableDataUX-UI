@@ -2,7 +2,6 @@ import { storageService } from "./async-storage.service"
 
 export const dataService = {
     query,
-    save,
     getEmptyRow,
     getEmptycolumn,
     getEmptyFilterBy,
@@ -53,7 +52,7 @@ async function removeRow(rowId) {
     try {
         let data = await storageService.query(STORAGE_KEY)
         data.rows = data.rows.filter(r => r.id !== rowId)
-        save(data)
+        _save(data)
         return data
     } catch (err) {
         throw new Error('Could not remove row')
@@ -65,7 +64,7 @@ async function addRow() {
         let data = await storageService.query(STORAGE_KEY)
         const newRow = getEmptyRow()
         const newData = { ...data, rows: [...data.rows, newRow] }
-        save(newData)
+        _save(newData)
         return newRow
     } catch (err) {
         throw new Error('Could not add row')
@@ -77,7 +76,7 @@ async function addColumn(newColumn) {
     try {
         let data = await storageService.query(STORAGE_KEY)
         const newData = { ...data, columns: [...data.columns, newColumn] }
-        save(newData)
+        _save(newData)
         return newColumn
     } catch (err) {
         throw new Error('Could not add column')
@@ -89,7 +88,7 @@ async function removeColumn(columnId) {
         let data = await storageService.query(STORAGE_KEY)
         const newColumns = data.columns.filter((c) => c.id !== columnId)
         const newData = { ...data, columns: newColumns }
-        save(newData)
+        _save(newData)
         return newData
     } catch (err) {
         throw new Error('Could not remove column')
@@ -101,7 +100,7 @@ async function updateCell(rowIdx, columnId, value) {
     try {
         let data = await storageService.query(STORAGE_KEY)
         data.rows[rowIdx][columnId] = value
-        save(data)
+        _save(data)
         return data
     } catch (err) {
         throw new Error('Could not update cell')
@@ -109,7 +108,7 @@ async function updateCell(rowIdx, columnId, value) {
 }
 
 
-function save(newData) {
+function _save(newData) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newData))
 }
 
@@ -174,21 +173,20 @@ function _createData() {
                     type: 'array',
                     width: 150
                 },
-                // {
-                //     id: 'c104',
-                //     ordinalNo: 4,
-                //     title: 'Profile',
-                //     type: 'object',
-                //     width: 150
-                // },
-                // adding column
-                // {
-                //     id: 'c103',
-                //     ordinalNo: 3,
-                //     title: 'Rank',
-                //     type: 'string',
-                //     width: 200
-                // }
+                {
+                    id: 'c104',
+                    ordinalNo: 4,
+                    title: 'Profile',
+                    type: 'object',
+                    width: 150
+                },
+                {
+                    id: 'c105',
+                    ordinalNo: 3,
+                    title: 'Rank',
+                    type: 'string',
+                    width: 200
+                }
             ],
             rows: [
                 {
@@ -196,7 +194,7 @@ function _createData() {
                     c100: 'Kai Nagar',
                     c101: 25,
                     c102: true,
-                    // c103: [5, 12, 14, 'S3 E5'],
+                    c103: [5, 12, 14, 'S3 E5'],
 
                 },
                 {
@@ -204,6 +202,7 @@ function _createData() {
                     c100: 'Tanjiro Kamado',
                     c101: 13,
                     c102: true,
+                    c103:['all']
                 },
                 {
                     id: 'r202',
@@ -216,7 +215,7 @@ function _createData() {
                     c100: 'Zenitsu Agatsuma',
                     c101: 16,
                     c102: false,
-                    // c104: { crush: 'nezuko', breathingType: 'thunder' }
+                    c104: { crush: 'nezuko', breathingType: 'thunder' }
                 },
             ]
         }

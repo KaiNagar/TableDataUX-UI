@@ -37,7 +37,7 @@ export const TableHeaders = ({
             )}
           </th>
         ))}
-      {columns.length < 5 && (
+      {columns.length < 6 && (
         <th
           onClick={onOpenColumnModal}
           title='Add a column'
