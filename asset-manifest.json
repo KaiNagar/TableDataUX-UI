@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TableDataUX-UI/static/css/main.c2538c3c.css",
-    "main.js": "/TableDataUX-UI/static/js/main.ae75091c.js",
+    "main.js": "/TableDataUX-UI/static/js/main.8bd51c10.js",
     "static/media/First Assigment1logo.png": "/TableDataUX-UI/static/media/First Assigment1logo.faea489002d1631dce99.png",
     "static/media/Raleway-Regular.ttf": "/TableDataUX-UI/static/media/Raleway-Regular.3927fa2a37e6f7f4c7c0.ttf",
     "static/media/Poppins-ExtraLight.ttf": "/TableDataUX-UI/static/media/Poppins-ExtraLight.333cb30c20e31999802a.ttf",
@@ -11,10 +11,10 @@
     "static/media/Poppins-Bold.ttf": "/TableDataUX-UI/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
     "index.html": "/TableDataUX-UI/index.html",
     "main.c2538c3c.css.map": "/TableDataUX-UI/static/css/main.c2538c3c.css.map",
-    "main.ae75091c.js.map": "/TableDataUX-UI/static/js/main.ae75091c.js.map"
+    "main.8bd51c10.js.map": "/TableDataUX-UI/static/js/main.8bd51c10.js.map"
   },
   "entrypoints": [
     "static/css/main.c2538c3c.css",
-    "static/js/main.ae75091c.js"
+    "static/js/main.8bd51c10.js"
   ]
 }
