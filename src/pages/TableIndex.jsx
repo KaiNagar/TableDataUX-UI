@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 import { TableData } from '../cmps/TableData'
 import { DataFilter } from '../cmps/DataFilter'
@@ -22,7 +22,7 @@ export const TableIndex = () => {
   const [allColumns, setAllColumns] = useState()
   const isFirstRender = useRef(true)
 
-  useEffectUpdate(() => {
+  useEffect(() => {
     onLoadingData()
   }, [filterBy])
 
@@ -64,6 +64,7 @@ export const TableIndex = () => {
       updateCell(rowIndex, columnId, newValue)
     }
   }
+
   return (
     <section className='table-index flex column align-items justify-center'>
       {data ? (
@@ -71,7 +72,7 @@ export const TableIndex = () => {
           {allColumns && (
             <DataFilter onSetFilterBy={setFilter} columns={allColumns} />
           )}
-          {(data.rows && data.columns) && (
+          {data.rows && data.columns && (
             <TableData
               onAddRow={addRow}
               onOpenColumnModal={onOpenColumnModal}
