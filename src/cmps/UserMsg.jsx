@@ -11,8 +11,8 @@ export function UserMsg() {
       setMsg(msg)
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (timeoutIdRef.current) {
-        timeoutIdRef.current = null
         clearTimeout(timeoutIdRef.current)
+        timeoutIdRef.current = null
       }
       timeoutIdRef.current = setTimeout(closeMsg, 1800)
     })
